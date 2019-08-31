@@ -17,8 +17,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tintColorStart="@android:color/holo_red_dark"
-        app:tintColorEnd="@android:color/holo_blue_dark"
+        app:iconColorStart="@android:color/holo_red_dark"
+        app:iconColorEnd="@android:color/holo_blue_dark"
+        app:titleTextColorStart="@android:color/transparent"
+        app:titleTextColorEnd="@android:color/holo_blue_dark"
         app:title="Title" />
 
     <com.example.fadetoolbar.ListenableScrollView

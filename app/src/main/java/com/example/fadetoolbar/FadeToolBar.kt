@@ -12,11 +12,6 @@ import androidx.core.view.children
 
 class FadeToolBar : Toolbar, ListenableScrollView.OnScrollChangeListener {
 
-    private var scrollView: ListenableScrollView? = null
-
-    private var tintColorStart: Int = Color.WHITE
-    private var tintColorEnd: Int = Color.DKGRAY
-
     // region constructors
 
     constructor(context: Context) : super(context)
@@ -31,32 +26,43 @@ class FadeToolBar : Toolbar, ListenableScrollView.OnScrollChangeListener {
         this.background.alpha = 0
     }
 
+    // endregion
+
+    private var scrollView: ListenableScrollView? = null
+
+    private var titleTextColorStart: Int = DEFAULT_TINT_START
+    private var titleTextColorEnd: Int = DEFAULT_TINT_END
+
+    private var iconColorStart: Int = DEFAULT_TINT_START
+    private var iconColorEnd: Int = DEFAULT_TINT_END
+
+    companion object Constants {
+        private const val DEFAULT_TINT_START: Int = Color.WHITE
+        private const val DEFAULT_TINT_END: Int = Color.DKGRAY
+    }
+
     private fun retrieveAttributes(attrs: AttributeSet) {
         val a = this.context.theme.obtainStyledAttributes(attrs, R.styleable.FadeToolBar, 0, 0)
         try {
-            this.tintColorStart = a.getColor(R.styleable.FadeToolBar_tintColorStart, Color.WHITE)
-            this.tintColorEnd = a.getColor(R.styleable.FadeToolBar_tintColorEnd, Color.DKGRAY)
+            this.iconColorStart = a.getColor(R.styleable.FadeToolBar_iconColorStart, DEFAULT_TINT_START)
+            this.iconColorEnd = a.getColor(R.styleable.FadeToolBar_iconColorEnd, DEFAULT_TINT_END)
+            this.titleTextColorStart = a.getColor(R.styleable.FadeToolBar_titleTextColorStart, DEFAULT_TINT_START)
+            this.titleTextColorEnd = a.getColor(R.styleable.FadeToolBar_titleTextColorEnd, DEFAULT_TINT_END)
         }
         finally {
             a.recycle()
         }
     }
 
-    // endregion
-
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         super.onLayout(changed, l, t, r, b)
-        this.setTintColor(this.tintColorStart)
+        this.setIconColor(this.iconColorStart)
+        this.setTitleTextColor(this.titleTextColorStart)
     }
 
     fun setupWithScrollView(scrollView: ListenableScrollView) {
         this.scrollView = scrollView
         this.scrollView?.setOnScrollChangeListener(this)
-    }
-
-    fun setTintColor(color: Int) {
-        this.setTitleTextColor(color)
-        this.setIconColor(color)
     }
 
     private fun setIconColor(color: Int) {
@@ -74,8 +80,11 @@ class FadeToolBar : Toolbar, ListenableScrollView.OnScrollChangeListener {
 
         this.background.alpha = alpha
 
-        val color = ColorUtils.blendARGB(this.tintColorStart, this.tintColorEnd, ratio)
-        this.setTintColor(color)
+        val iconColor = ColorUtils.blendARGB(this.iconColorStart, this.iconColorEnd, ratio)
+        val titleTextColor = ColorUtils.blendARGB(this.titleTextColorStart, this.titleTextColorEnd, ratio)
+
+        this.setIconColor(iconColor)
+        this.setTitleTextColor(titleTextColor)
     }
 
     // endregion

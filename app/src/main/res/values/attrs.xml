@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="FadeToolBar">
-        <attr name="tintColorStart" format="color"/>
-        <attr name="tintColorEnd" format="color"/>
+        <attr name="titleTextColorStart" format="color"/>
+        <attr name="titleTextColorEnd" format="color"/>
+        <attr name="iconColorStart" format="color"/>
+        <attr name="iconColorEnd" format="color"/>
     </declare-styleable>
 </resources>
