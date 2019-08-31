@@ -10,18 +10,19 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:background="@android:color/white"
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:iconColorEnd="@android:color/holo_blue_dark"
+        app:iconColorStart="@android:color/holo_red_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:iconColorStart="@android:color/holo_red_dark"
-        app:iconColorEnd="@android:color/holo_blue_dark"
-        app:titleTextColorStart="@android:color/transparent"
+        app:title="Title"
         app:titleTextColorEnd="@android:color/holo_blue_dark"
-        app:title="Title" />
+        app:titleTextColorStart="@android:color/transparent" />
 
     <com.example.fadetoolbar.ListenableScrollView
         android:id="@+id/scrollView"

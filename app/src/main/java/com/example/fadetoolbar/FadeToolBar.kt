@@ -28,6 +28,11 @@ class FadeToolBar : Toolbar, ListenableScrollView.OnScrollChangeListener {
 
     // endregion
 
+    interface OnAlphaChangeListener {
+        fun onAlphaChanged(alpha: Int)
+    }
+    private var onAlphaChangeListener: OnAlphaChangeListener? = null
+
     private var scrollView: ListenableScrollView? = null
 
     private var titleTextColorStart: Int = DEFAULT_TINT_START
@@ -54,8 +59,8 @@ class FadeToolBar : Toolbar, ListenableScrollView.OnScrollChangeListener {
         }
     }
 
-    override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
-        super.onLayout(changed, l, t, r, b)
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
         this.setIconColor(this.iconColorStart)
         this.setTitleTextColor(this.titleTextColorStart)
     }
@@ -79,6 +84,7 @@ class FadeToolBar : Toolbar, ListenableScrollView.OnScrollChangeListener {
         val alpha = (ratio * 255).toInt().coerceAtMost(255)
 
         this.background.alpha = alpha
+        this.onAlphaChangeListener?.onAlphaChanged(alpha)
 
         val iconColor = ColorUtils.blendARGB(this.iconColorStart, this.iconColorEnd, ratio)
         val titleTextColor = ColorUtils.blendARGB(this.titleTextColorStart, this.titleTextColorEnd, ratio)
@@ -88,6 +94,10 @@ class FadeToolBar : Toolbar, ListenableScrollView.OnScrollChangeListener {
     }
 
     // endregion
+
+    fun setOnAlphaChangeListener(l: OnAlphaChangeListener) {
+        this.onAlphaChangeListener = l
+    }
 }
 
 class ListenableScrollView : ScrollView {
@@ -109,5 +119,4 @@ class ListenableScrollView : ScrollView {
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
         this.onScrollChangeListener?.onScrollChanged(t, oldt)
     }
-
 }
