@@ -80,8 +80,8 @@ class FadeToolBar : Toolbar, ListenableScrollView.OnScrollChangeListener {
 
     override fun onScrollChanged(scrollY: Int, oldScrollY: Int) {
 
-        val ratio = (scrollY.toFloat() / (this.height.toFloat() * 2)).coerceAtMost(1.0f)
-        val alpha = (ratio * 255).toInt().coerceAtMost(255)
+        val ratio = (scrollY.toFloat() / (this.height.toFloat() * 2)).coerceIn(0.0f, 1.0f)
+        val alpha = (ratio * 255).toInt().coerceIn(0, 255)
 
         this.background.alpha = alpha
         this.onAlphaChangeListener?.onAlphaChanged(alpha)
